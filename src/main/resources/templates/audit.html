@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Audit Log - Toggle Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                <span class="fw-bold">Spring Toggle Hub</span>
+            </a>
+            <div class="d-flex gap-2">
+                 <a href="/" class="btn btn-outline-light btn-sm">← Back to Dashboard</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold mb-1">Audit Log</h2>
+                <p class="text-muted mb-0">Track all changes made to your feature flags.</p>
+            </div>
+        </div>
+        
+        <div class="card border-0 shadow-sm overflow-hidden">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4">Timestamp</th>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr th:each="log : ${logs}">
+                            <td class="ps-4 text-muted text-sm font-monospace" th:text="${#temporals.format(log.timestamp, 'yyyy-MM-dd HH:mm:ss')}">Time</td>
+                            <td>
+                                <span class="badge bg-light text-dark border" th:text="${log.actor}">User</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-primary bg-opacity-10 text-primary border border-primary-subtle" th:text="${log.action}">Action</span>
+                            </td>
+                            <td class="text-secondary" th:text="${log.details}">Details</td>
+                        </tr>
+                         <tr th:if="${#lists.isEmpty(logs)}">
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                No audit records found.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
