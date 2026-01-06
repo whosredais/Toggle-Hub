@@ -7,6 +7,3 @@ target/
 *.iml
 *.log
 .DS_Store
-*.db
-*.mv.db
-data/
